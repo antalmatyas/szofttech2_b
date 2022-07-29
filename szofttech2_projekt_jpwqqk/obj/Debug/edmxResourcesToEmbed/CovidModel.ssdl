@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="covidDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="connect_id" />
+    </Key>
+    <Property Name="connect_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="person_id" Type="int" Nullable="false" />
+    <Property Name="contact_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="contact_id" />
+    </Key>
+    <Property Name="contact_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="contact_date" Type="date" />
+    <Property Name="contact_place" Type="nvarchar" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="person_id" />
+    </Key>
+    <Property Name="person_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="person_name" Type="nvarchar" MaxLength="60" />
+    <Property Name="person_birthdate" Type="date" />
+    <Property Name="person_number" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Vaccination">
+    <Key>
+      <PropertyRef Name="vaccination_id" />
+    </Key>
+    <Property Name="vaccination_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="person_id" Type="int" Nullable="false" />
+    <Property Name="vaccination_date" Type="date" />
+    <Property Name="vaccine_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vaccine">
+    <Key>
+      <PropertyRef Name="vaccine_id" />
+    </Key>
+    <Property Name="vaccine_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vaccine_name" Type="nvarchar" MaxLength="60" />
+  </EntityType>
+  <Association Name="FK_Connection_ToContact">
+    <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+    <End Role="Connection" Type="Self.Connection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contact">
+        <PropertyRef Name="contact_id" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="contact_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Connection_ToPerson">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Connection" Type="Self.Connection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="person_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vaccination_ToPerson">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Vaccination" Type="Self.Vaccination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="person_id" />
+      </Principal>
+      <Dependent Role="Vaccination">
+        <PropertyRef Name="person_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vaccination_ToVaccine">
+    <End Role="Vaccine" Type="Self.Vaccine" Multiplicity="1" />
+    <End Role="Vaccination" Type="Self.Vaccination" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vaccine">
+        <PropertyRef Name="vaccine_id" />
+      </Principal>
+      <Dependent Role="Vaccination">
+        <PropertyRef Name="vaccine_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="covidDatabaseModelStoreContainer">
+    <EntitySet Name="Connection" EntityType="Self.Connection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vaccination" EntityType="Self.Vaccination" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vaccine" EntityType="Self.Vaccine" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Connection_ToContact" Association="Self.FK_Connection_ToContact">
+      <End Role="Contact" EntitySet="Contact" />
+      <End Role="Connection" EntitySet="Connection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Connection_ToPerson" Association="Self.FK_Connection_ToPerson">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Connection" EntitySet="Connection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vaccination_ToPerson" Association="Self.FK_Vaccination_ToPerson">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Vaccination" EntitySet="Vaccination" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vaccination_ToVaccine" Association="Self.FK_Vaccination_ToVaccine">
+      <End Role="Vaccine" EntitySet="Vaccine" />
+      <End Role="Vaccination" EntitySet="Vaccination" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

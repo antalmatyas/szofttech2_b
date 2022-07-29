@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="covidDatabaseModelStoreContainer" CdmEntityContainer="covidDatabaseEntities">
+    <EntitySetMapping Name="Contacts">
+      <EntityTypeMapping TypeName="covidDatabaseModel.Contact">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+          <ScalarProperty Name="contact_date" ColumnName="contact_date" />
+          <ScalarProperty Name="contact_place" ColumnName="contact_place" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="covidDatabaseModel.Person">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="person_id" ColumnName="person_id" />
+          <ScalarProperty Name="person_name" ColumnName="person_name" />
+          <ScalarProperty Name="person_birthdate" ColumnName="person_birthdate" />
+          <ScalarProperty Name="person_number" ColumnName="person_number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vaccinations">
+      <EntityTypeMapping TypeName="covidDatabaseModel.Vaccination">
+        <MappingFragment StoreEntitySet="Vaccination">
+          <ScalarProperty Name="vaccination_id" ColumnName="vaccination_id" />
+          <ScalarProperty Name="person_id" ColumnName="person_id" />
+          <ScalarProperty Name="vaccination_date" ColumnName="vaccination_date" />
+          <ScalarProperty Name="vaccine_id" ColumnName="vaccine_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vaccines">
+      <EntityTypeMapping TypeName="covidDatabaseModel.Vaccine">
+        <MappingFragment StoreEntitySet="Vaccine">
+          <ScalarProperty Name="vaccine_id" ColumnName="vaccine_id" />
+          <ScalarProperty Name="vaccine_name" ColumnName="vaccine_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Connections">
+      <EntityTypeMapping TypeName="covidDatabaseModel.Connection">
+        <MappingFragment StoreEntitySet="Connection">
+          <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+          <ScalarProperty Name="person_id" ColumnName="person_id" />
+          <ScalarProperty Name="connect_id" ColumnName="connect_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
